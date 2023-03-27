@@ -2,4 +2,4 @@ Data_extraction/1.combine_jose_mbox/separated/*
 *.mbox
 Data_extraction/2.enron_2_mbox/gathered_maildir/*
 Data_extraction/2.enron_2_mbox/original_maildir/*
-
+./features.txt

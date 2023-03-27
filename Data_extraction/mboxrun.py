@@ -215,7 +215,7 @@ def processFile(filepath, phishy=True, limit=math.inf):
     print('the number of empty emails is:',empty_num)
 
     df = pd.DataFrame(data)
-    df.to_csv(filepath + "-export.csv", quoting=csv.QUOTE_ALL)
+    df.to_csv(filepath + ".csv", quoting=csv.QUOTE_ALL)
 
     # emails = pd.DataFrame(email_index)
     # emails.to_csv(filepath + "-export-index.csv")
@@ -225,7 +225,7 @@ def mboxtests():
     path_ = './3.final_mbox'
     ham_path = os.path.join(path_,'ham_.mbox') 
     phishing_path = os.path.join(path_,'phishing_.mbox')
-    processFile(ham_path)
+    processFile(ham_path, phishy=False)
     processFile(phishing_path)
 
 

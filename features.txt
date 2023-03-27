@@ -1,0 +1,7 @@
+- https link
+- Certificate authority
+- Blacklist keywords
+- Redirection URL
+- URL shorteners
+- ip address
+- Attached file extension
