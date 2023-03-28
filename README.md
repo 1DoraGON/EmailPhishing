@@ -19,11 +19,15 @@ Internal features:
 - HREFs to IPs DONE
 
 
-# First extract_data (have_issues):
+# First extract_data :
   - combinibg nazario mabox files to one mbox wich contains 10705. 
   - converting 10705 enron maildir to mbox file.
   - extracting th features from each dataset to csv file.
   
 # Second Model Creation (not finished):
-  - import the csv's and combinig them.
-  by observing the data it seems that the extracted features are wrong.
+  - import the csv's and combining them.
+  - getting rid of some meaningless features.
+  - features encoding.
+  - features min-max scaling.
+  - training models.
+  - performance metrics for each model to compare them.
