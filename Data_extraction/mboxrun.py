@@ -226,7 +226,7 @@ def mboxtests():
     ham_path = os.path.join(path_,'ham_.mbox') 
     phishing_path = os.path.join(path_,'phishing_.mbox')
     processFile(ham_path, phishy=False)
-    processFile(phishing_path)
+    # processFile(phishing_path)
 
 
 mboxtests()
