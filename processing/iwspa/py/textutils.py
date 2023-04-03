@@ -1,6 +1,10 @@
 import re
 import config
 
+from datetime import datetime
+from bs4 import BeautifulSoup
+
+
 def is_acceptable_size(body_text):
     MAX_TOKENS = 1000
     MIN_TOKENS = 50
@@ -78,3 +82,66 @@ def is_valid_token(s):
     b = b and len(s) < 25
 
     return b
+
+
+def get_content_type(content):
+    # from this "text/plain; charset=\"us-ascii\" to text/plain
+    return content.split(";")[0]  
+  
+def extract_first_email(text):
+    match = re.search(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', text)
+    if match:
+        return match.group(0)
+    else:
+        return None
+    
+def extract_emails(text):
+    emails = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', text)
+    return ' '.join(emails)
+
+
+def extract_day_hour_minute(date_str):
+    # Define regular expression pattern to match date and time information
+    pattern = r'(?P<day>\w{3}), (?P<day_num>\d{1,2}) (?P<month>\w{3}) (?P<year>\d{4}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2}) (?P<offset>[+-]\d{4})'
+
+    # Match the pattern against the input string and extract named groups
+    match = re.match(pattern, date_str)
+
+    try:
+        # Parse the day of the week, hour, and minute from the named groups
+        day_of_week = datetime.strptime(match.group('day'), '%a').strftime('%A')
+        hour = match.group('hour')
+        minute = match.group('minute')
+
+        # Combine the day of the week and hour into a single string
+        result = f"{day_of_week} {hour}:{minute}"
+    except:
+        result = date_str
+        print("extract_day_hour_minute error",date_str)
+    return result
+
+
+def clean_html(text):
+    if not re.search('<.*?>', text):
+        return text
+
+    soup = BeautifulSoup(text, "lxml")
+
+    unwanted_tags = [
+        '[document]',
+    	'noscript',
+    	'header',
+    	'html',
+    	'meta',
+    	'head',
+    	'input',
+    	'script',
+        'style',
+        'font']
+    for tag in soup.find_all(unwanted_tags):
+        tag.extract()
+
+    # Extract the text content from the parsed HTML
+    text_content = soup.get_text().strip()
+
+    return text_content
