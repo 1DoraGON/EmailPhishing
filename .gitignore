@@ -4,3 +4,6 @@ assassin/
 nazario/
 
 *.txt
+*.h5
+
+testing.ipynb
